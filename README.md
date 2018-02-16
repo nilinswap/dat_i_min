@@ -1,2 +1,2 @@
 # dat_i_min
-A clean implementation of Apriori algorithm
+A clean implementation of Apriori algorithm in python.
