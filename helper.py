@@ -1,6 +1,7 @@
 import sortedcontainers
 from sortedcontainers import SortedList, SortedDict, SortedSet
 from item_set import Itemset
+from transaction import Transaction
 def first_freq_itemset(Db, I, min_sup):
 	'''
 	This function generates the initial L ( frequent itemset set ) which is only of one
@@ -16,16 +17,38 @@ def first_freq_itemset(Db, I, min_sup):
 	for trans in Db:
 		lis+=list(trans.set)
 	for item in I:
+		print(item)
 		c = lis.count(item)
 		if c < min_sup:
 			continue
+
 		L.add(Itemset(SortedSet(item)))
+
 	return L
 
+class Non_iter:
 
-'''
-def has_infrequent_subset(C, L, min_sup):
-'''
+	def __init__(self, st):
+		self.st = st
+def read_data(st):
+	'''
+
+	:param st:
+	:return:
+	'''
+
+	fileo = open(st, 'r+')
+	lis_of_lis = fileo.readlines()
+	Db_lis = [set(item.rstrip().lstrip().split(' ')) for item in lis_of_lis]
+	I_set = SortedSet([])
+	for item in Db_lis:
+		I_set = I_set.union(SortedSet( item ))
+	I = list(I_set)
+	pass
+	Db_lis = [Transaction(seth=SortedSet(item), Tid=num) for num, item in enumerate(Db_lis)]
+	Db = SortedSet(Db_lis, key=lambda x: x.Tid)
+	I = SortedSet([str(i) for i in range(100)])
+	return Db, I
 def apriori_gen(Db, L, I, min_sup):
 	'''
 	The task of this function is to generate next candidate set using L.
@@ -47,3 +70,7 @@ def apriori_gen(Db, L, I, min_sup):
 				if new_itemset.has_infrequent_subset(L):
 					C.add(new_itemset)
 	return C
+
+if __name__ == '__main__':
+	Db = read_data('chess.dat')
+	pass

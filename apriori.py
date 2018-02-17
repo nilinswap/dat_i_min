@@ -12,6 +12,9 @@ def Apriori(Db,I, min_sup):
 	:param min_sup: minimum support
 	:return: The set of Itemset objects
 	'''
+
+	min_sup = len(Db)*min_sup
+
 	L = first_freq_itemset(Db, I, min_sup)
 	i = 2
 
@@ -36,6 +39,8 @@ def Apriori(Db,I, min_sup):
 
 
 
+
+
 def Test():
 	'''
 	Rest is Test
@@ -45,10 +50,14 @@ def Test():
 	Db_lis = [{'1', '2', '5'}, {'2', '4'}, {'2', '3'}, {'1', '2', '4'}, {'1', '3'}, {'2', '3'}, {'1', '3'}, {'1', '2', '3', '5'}, {'1', '2', '3'}]
 	Db_lis = [Transaction(seth = SortedSet(item), Tid = num) for num, item in enumerate(Db_lis)]
 	Db = SortedSet(Db_lis, key = lambda x: x.Tid)
-	min_sup = 2
-	q = first_freq_itemset(Db, I, min_sup)
-
+	min_sup = 0.5
+	#q = first_freq_itemset(Db, I, min_sup)
 	p = Apriori(Db, I, min_sup )
 	print(p)
+def main_test():
+	min_sup = 0.9
+	Db, I = read_data('chess.dat')
+	p = Apriori(Db, I, min_sup)
+	print(p)
 if __name__ == '__main__':
-	Test()
+	main_test()

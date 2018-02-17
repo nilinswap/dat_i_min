@@ -22,6 +22,7 @@ class Itemset:
 		:param itemset: other Itemset object
 		:return: tuple of two items, namely non-common items or None
 		'''
+		print(self.set, itemset.set)
 		assert( len(self.set) == len(itemset.set))
 		tup = self.set[-1], itemset.set[-1]
 		if self.set[:-1] == []:
