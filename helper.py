@@ -22,7 +22,7 @@ def first_freq_itemset(Db, I, min_sup):
 		if c < min_sup:
 			continue
 
-		L.add(Itemset(SortedSet(item)))
+		L.add(Itemset(SortedSet({item})))
 
 	return L
 
@@ -39,7 +39,7 @@ def read_data(st):
 
 	fileo = open(st, 'r+')
 	lis_of_lis = fileo.readlines()
-	Db_lis = [set(item.rstrip().lstrip().split(' ')) for item in lis_of_lis]
+	Db_lis = [set([int(itemm) for itemm in item.rstrip().lstrip().split(' ')]) for item in lis_of_lis]
 	I_set = SortedSet([])
 	for item in Db_lis:
 		I_set = I_set.union(SortedSet( item ))
@@ -47,7 +47,7 @@ def read_data(st):
 	pass
 	Db_lis = [Transaction(seth=SortedSet(item), Tid=num) for num, item in enumerate(Db_lis)]
 	Db = SortedSet(Db_lis, key=lambda x: x.Tid)
-	I = SortedSet([str(i) for i in range(100)])
+	I = SortedSet([i for i in range(100)])
 	return Db, I
 def apriori_gen(Db, L, I, min_sup):
 	'''
