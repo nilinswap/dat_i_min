@@ -58,6 +58,8 @@ def main_test():
 	min_sup = 0.9
 	Db, I = read_data('chess.dat')
 	p = Apriori(Db, I, min_sup)
+	for itemset in p:
+		print(itemset.set._list)
 	print(p)
 if __name__ == '__main__':
 	main_test()

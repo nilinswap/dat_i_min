@@ -39,15 +39,16 @@ def read_data(st):
 
 	fileo = open(st, 'r+')
 	lis_of_lis = fileo.readlines()
-	Db_lis = [set(item.rstrip().lstrip().split(' ')) for item in lis_of_lis]
+	Db_lis = [set([(itemm, '0') for itemm in item.rstrip().lstrip().split(' ')]) for item in lis_of_lis]
 	I_set = SortedSet([])
 	for item in Db_lis:
 		I_set = I_set.union(SortedSet( item ))
 	I = list(I_set)
+	I = [ (item, '0') for item in I]
 	pass
 	Db_lis = [Transaction(seth=SortedSet(item), Tid=num) for num, item in enumerate(Db_lis)]
 	Db = SortedSet(Db_lis, key=lambda x: x.Tid)
-	I = SortedSet([str(i) for i in range(100)])
+	I = SortedSet([(str(i),'0') for i in range(100)])
 	return Db, I
 def apriori_gen(Db, L, I, min_sup):
 	'''
