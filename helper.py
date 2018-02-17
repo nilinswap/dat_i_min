@@ -22,7 +22,7 @@ def first_freq_itemset(Db, I, min_sup):
 		if c < min_sup:
 			continue
 
-		L.add(Itemset(SortedSet(item)))
+		L.add(Itemset(SortedSet(item), key = lambda x: x.st))
 
 	return L
 
@@ -30,6 +30,14 @@ class Non_iter:
 
 	def __init__(self, st):
 		self.st = st
+	'''def __eq__(self, other):
+		return self.st == other.st
+	def __ne__(self, other):
+		return self.st != other.st
+	def __le__(self, other):
+		return self.st <= other.st
+	def __ge__(self, other):
+		return self.st >= other.st'''
 def read_data(st):
 	'''
 
@@ -45,9 +53,9 @@ def read_data(st):
 		I_set = I_set.union(SortedSet( item ))
 	I = list(I_set)
 	pass
-	Db_lis = [Transaction(seth=SortedSet(item), Tid=num) for num, item in enumerate(Db_lis)]
+	Db_lis = [Transaction(seth=SortedSet(Non_iter(item), key = lambda x: x.st), Tid=num) for num, item in enumerate(Db_lis)]
 	Db = SortedSet(Db_lis, key=lambda x: x.Tid)
-	I = SortedSet([str(i) for i in range(100)])
+	I = SortedSet([Non_iter(str(i)) for i in range(100)], key = lambda x: x.st)
 	return Db, I
 def apriori_gen(Db, L, I, min_sup):
 	'''
@@ -63,7 +71,7 @@ def apriori_gen(Db, L, I, min_sup):
 		for itemset_2 in L[num+1:]:
 			tup = itemset_1.can_be_joined_with(itemset_2)
 			if  tup is not None:
-				new_set = SortedSet(itemset_1.set)
+				new_set = SortedSet(itemset_1.set, key = lambda x: x.st)
 				new_set.add(tup[1])
 				new_itemset = Itemset(seth = new_set)
 				new_itemset.last_tup = tup

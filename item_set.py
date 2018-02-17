@@ -9,7 +9,7 @@ class Itemset:
 	So a class was made with set as attribute
 	'''
 	last_tup = None # this is useful to reduce complexity in has_infrequent_subset method
-	def __init__(self, seth = SortedSet([])):
+	def __init__(self, seth = SortedSet([], key = lambda x: x.st)):
 		'''
 		:param seth: set of items( string typically)
 		'''

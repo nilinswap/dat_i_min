@@ -5,7 +5,7 @@ class Transaction(Itemset):
 	'''
 	This exists because I am OOP-Nazi.
 	'''
-	def __init__(self, seth = SortedSet([]), Tid = None):
+	def __init__(self, seth = SortedSet([], key = lambda x: x.st), Tid = None):
 		'''
 
 		:param seth: set of Items bought together
